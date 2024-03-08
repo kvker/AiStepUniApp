@@ -24,14 +24,36 @@ const onChat = async () => {
   if (lastChat && !isChating.value) {
     try {
       isChating.value = true
-      await onCompletions(chatList.value, (result) => {
-        lastContent.value = result
-        onScrollToBottom()
+      // 用一个事件循环搞定打字机
+      let haveDone = false
+      let loop: Function[] = []
+      const run = () => {
+        setTimeout(() => {
+          const task = loop.shift()
+          task && task()
+          if (!task && haveDone) {
+            console.log('结束')
+          } else {
+            run()
+          }
+        }, 50)
+      }
+      run()
+      await onCompletions(chatList.value, (text) => {
+        text.split('').forEach(i => {
+          loop.push(() => {
+            lastContent.value += i
+            onScrollToBottom()
+          })
+        })
       }, done => {
         if (done) {
-          isChating.value = false
-          onCreateChat(lastContent.value, 'assistant')
-          lastContent.value = ''
+          loop.push(() => {
+            isChating.value = false
+            onCreateChat(lastContent.value, 'assistant')
+            lastContent.value = ''
+          })
+          haveDone = true
         }
       })
     } catch (error) {

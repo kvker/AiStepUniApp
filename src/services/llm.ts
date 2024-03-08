@@ -49,7 +49,7 @@ async function onFetchStream(messages: GLMMessage[], SseCB: LlmCb, doneCb?: LlmC
       if (content.trim()) {
         resultText += content
         // console.log(resultText)
-        SseCB && SseCB(resultText)
+        SseCB && SseCB(content)
       }
     }
     if (done) {
