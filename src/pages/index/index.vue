@@ -63,6 +63,8 @@ const onScrollToBottom = () => {
     })
   })
 }
+
+const isDev = process.env.NODE_ENV === 'development'
 </script>
 
 <template>
@@ -73,17 +75,18 @@ const onScrollToBottom = () => {
     </view>
     <view v-for="(chat, index) of chatList" :key="`chat${index}`" class="chat flex chat-start"
       :class="chat.role === 'assistant' ? 'chat-start' : 'chat-end'">
-      <view class="chat-bubble" :class="chat.role === 'assistant' ? 'chat-bubble-accent' : 'chat-bubble-info'">{{
-      chat.content }}</view>
+      <view class="chat-bubble" :class="chat.role === 'assistant' ? 'chat-bubble-accent' : 'chat-bubble-info'">
+        <text user-select>{{ chat.content }}</text>
+      </view>
     </view>
     <view v-show="lastContent" class="chat chat-start">
-      <view class="chat-bubble chat-bubble-accent">{{ lastContent }}</view>
+      <view class="chat-bubble chat-bubble-accent"><text user-select>{{ lastContent }}</text></view>
     </view>
   </view>
   <view class="chat-input-box flex jcsb aic fixed">
     <textarea class="f1" :placeholder="isChating ? '请等待 AI 输出完成' : '请描述您的需求'" :disabled="isChating"
       v-model="chatContent" confirm-type="send" @confirm="onSend"></textarea>
-    <view @click="onSend">send</view>
+    <view v-if="isDev" @click="onSend">send</view>
   </view>
 </template>
 
@@ -134,7 +137,7 @@ const onScrollToBottom = () => {
 }
 
 .chat-list-box {
-  margin: 100px 0 180px;
+  padding: 100px 10px 180px;
 }
 
 .chat-input-box {
@@ -142,6 +145,7 @@ const onScrollToBottom = () => {
   left: 0;
   width: 100%;
   background-color: white;
+  padding: 10px 0 80px;
 }
 
 textarea {
@@ -149,7 +153,7 @@ textarea {
   border: none;
   outline: none;
   padding: 10px;
-  margin: 10px 10px 80px;
+  margin: 0 10px 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
