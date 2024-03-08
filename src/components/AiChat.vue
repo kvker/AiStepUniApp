@@ -5,9 +5,14 @@ import type { Ref } from 'vue'
 </script>
 
 <template>
-  <div>
+  <view class="chat-container">
     1
-  </div>
+  </view>
 </template>
 
-<style scoped></style>
+<style scoped>
+.chat-container {
+  width: 100%;
+  height: 100%;
+}
+</style>

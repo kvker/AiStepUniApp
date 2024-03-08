@@ -13,7 +13,4 @@ onHide(() => {
 
 <style>
 @import url(./static/styles/main.css);
-page {
-  padding: 20px;
-}
 </style>

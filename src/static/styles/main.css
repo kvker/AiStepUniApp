@@ -1,6 +1,7 @@
 @import url(./variable.css);
 
 @media (max-width: 800px) {
+
   html,
   body,
   page,
@@ -61,9 +62,12 @@ ul,
 html,
 body,
 page,
-.page {
+.page,
+view,
+div {
   scroll-behavior: smooth;
   overflow: auto;
+  box-sizing: border-box;
 }
 
 body {

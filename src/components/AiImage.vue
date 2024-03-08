@@ -5,9 +5,14 @@ import type { Ref } from 'vue'
 </script>
 
 <template>
-  <div>
-2
-  </div>
+  <view class="image-container">
+    2
+  </view>
 </template>
 
-<style scoped></style>
+<style scoped>
+.image-container {
+  width: 100%;
+  height: 100%;
+}
+</style>
