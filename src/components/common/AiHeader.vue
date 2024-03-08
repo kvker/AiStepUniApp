@@ -5,14 +5,13 @@ import type { Ref } from 'vue'
 </script>
 
 <template>
-  <view class="image-container">
-    2
+  <view class="header-container">
+
   </view>
 </template>
 
 <style scoped>
-.image-container {
-  width: 100%;
-  height: 100%;
+.header-container {
+  background-color: #fff;
 }
 </style>
