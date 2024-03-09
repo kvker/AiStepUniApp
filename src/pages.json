@@ -1,7 +1,11 @@
 {
   "pages": [
     {
-      "path": "pages/index/index",
+      "path": "pages/chat/chat",
+      "style": {}
+    },
+    {
+      "path": "pages/image/image",
       "style": {}
     }
   ],
@@ -17,5 +21,25 @@
     "navigationBarTitleText": "一步AI",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "#63D2E9",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/chat/chat",
+        "iconPath": "static/icons/chat-disabled.png",
+        "selectedIconPath": "static/icons/chat.png",
+        "text": "聊天"
+      },
+      {
+        "pagePath": "pages/image/image",
+        "iconPath": "static/icons/image-disabled.png",
+        "selectedIconPath": "static/icons/image.png",
+        "text": "绘画"
+      }
+    ]
   }
 }

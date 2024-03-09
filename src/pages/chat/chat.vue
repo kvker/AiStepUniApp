@@ -90,7 +90,6 @@ const isDev = process.env.NODE_ENV === 'development'
 </script>
 
 <template>
-  <AiHeader></AiHeader>
   <view class="chat-list-box" ref="listBox">
     <view class="chat chat-start flex">
       <view class="chat-bubble chat-bubble-accent">你好啊，有什么需要帮助的么？</view>
