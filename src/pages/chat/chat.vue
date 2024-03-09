@@ -46,8 +46,8 @@ const onChat = async () => {
             onScrollToBottom()
           })
         })
-      }, done => {
-        if (done) {
+      }, resultText => {
+        if (resultText) {
           loop.push(() => {
             isChating.value = false
             onCreateChat(lastContent.value, 'assistant')
@@ -55,6 +55,11 @@ const onChat = async () => {
           })
           haveDone = true
         }
+      }, errorMessage => {
+        onCreateChat('对话出现错误，请重新尝试，或重启小程序：' + errorMessage, 'assistant')
+        isChating.value = false
+        lastContent.value = ''
+        haveDone = true
       })
     } catch (error) {
       isChating.value = false
@@ -166,7 +171,7 @@ const isDev = process.env.NODE_ENV === 'development'
   left: 0;
   width: 100%;
   background-color: white;
-  padding: 10px 0 80px;
+  padding: 10px 0;
 }
 
 textarea {

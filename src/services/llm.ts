@@ -4,17 +4,13 @@ type GlmResponseJson = { "id": string, "created": number, "model": string, "choi
 
 type LlmCb = (result: string) => void
 
-export async function onCompletions(content: string | GLMMessage[], SseCB: LlmCb, doneCb?: LlmCb) {
+export async function onCompletions(content: string | GLMMessage[], SseCB: LlmCb, doneCb?: LlmCb, errorCb?: LlmCb) {
   let messages = []
   if (content instanceof Array) {
     messages = content
   } else {
     messages = [{ content, role: 'user' }] as GLMMessage[]
   }
-  await onFetchStream(messages, SseCB, doneCb)
-}
-
-async function onFetchStream(messages: GLMMessage[], SseCB: LlmCb, doneCb?: LlmCb) {
   const requestTask: any = wx.request({
     url: 'https://1251835910-csx8mv01a0-bj.scf.tencentcs.com/api/sse',
     method: 'POST',
@@ -29,9 +25,11 @@ async function onFetchStream(messages: GLMMessage[], SseCB: LlmCb, doneCb?: LlmC
     data: {
       messages,
     },
+    fail: (error: any) => {
+      errorCb && errorCb(error.message || error.errMsg || error)
+    }
   })
   let text = ''
-  let content = ''
   let tempText = '' // 临时存储一节无法parse的字符串, 追加到可以parse为止
   let resultText = ''
   let parseRet = { jsonList: [] as GlmResponseJson[], tempText: '', done: false }
